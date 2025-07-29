@@ -95,8 +95,12 @@ public class RobotContainer {
   }
 
   private void configureOperatorBindings() {
-    operatorController.rightBumper().onTrue(new RaiseClimber(climber, () -> operatorController.rightBumper().getAsBoolean()));
-    operatorController.leftBumper().onTrue(new LowerClimber(climber, () -> operatorController.leftBumper().getAsBoolean()));
+    operatorController
+        .rightBumper()
+        .onTrue(new RaiseClimber(climber, () -> operatorController.rightBumper().getAsBoolean()));
+    operatorController
+        .leftBumper()
+        .onTrue(new LowerClimber(climber, () -> operatorController.leftBumper().getAsBoolean()));
   }
 
   private double deadZone(double number) {

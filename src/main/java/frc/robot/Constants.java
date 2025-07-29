@@ -67,6 +67,7 @@ public final class Constants {
       RAISED(RAISED_POSITION);
 
       public final Rotation2d position;
+
       private CLIMB_STATE(Rotation2d position) {
         this.position = position;
       }

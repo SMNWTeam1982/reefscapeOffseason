@@ -1,6 +1,5 @@
 package frc.robot.subsystems.climber;
 
-import org.littletonrobotics.junction.Logger;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -12,6 +11,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ClimberConstants.CLIMB_STATE;
+import org.littletonrobotics.junction.Logger;
 
 public class ClimberSubsystem extends SubsystemBase {
   private SparkMax climbMotor;
@@ -63,6 +63,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   /**
    * Returns the current climber state
+   *
    * @return current state as a {@link CLIMB_STATE}
    */
   private CLIMB_STATE getClimberState() {
@@ -79,7 +80,8 @@ public class ClimberSubsystem extends SubsystemBase {
       return;
     }
     double climberOutput =
-        climbPIDController.calculate(getClimberRotation().getRadians(), desiredState.position.getRadians());
+        climbPIDController.calculate(
+            getClimberRotation().getRadians(), desiredState.position.getRadians());
     // clamp values
     if (climberOutput >= 12.0) {
       climberOutput = 12.0;
