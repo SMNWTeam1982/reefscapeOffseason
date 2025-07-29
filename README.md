@@ -1,8 +1,7 @@
-# Java Swerve Template
-[![CI](https://github.com/SMNWTeam1982/java-swerve-template/actions/workflows/main.yml/badge.svg)](https://github.com/SMNWTeam1982/java-swerve-template/actions/workflows/main.yml)
+# Reefscape Off-Season Repository
+[![CI](https://github.com/SMNWTeam1982/reefscapeOffseason/actions/workflows/main.yml/badge.svg)](https://github.com/SMNWTeam1982/reefscapeOffseason/actions/workflows/main.yml)
 <br>
-A generalized Swerve-Drive template repository in Java that's meant to be a drop-in base for future robots.
-It includes several features to make development work somewhat easier for the team, and some complex utilities and dependencies for more advanced navigation, odometry, and logging.
+This is the off-season code rehash for the 2025 FRC Season Reefscape game. During the season, we depended on a buggy (although better than previous) codebase written in Python. This greatly limited the flexibility of our code and the tools we could use during the season. As this new codebase is based off of the [Java Swerve Template](https://github.com/SMNWTeam1982/java-swerve-template), it has a more solid basis and structure than Python could provide. This codebase also makes the migration to the Command-based paradigm which helps to add greater flexibility and enables the use of tools such as Pathplanner.
 
 ## Components
  - AdvantageKit - Advanced logging framework
@@ -10,5 +9,9 @@ It includes several features to make development work somewhat easier for the te
  - PhotonLib - AprilTag/general vision system
  - QuestNav - Odometry data from Quest 3s
 
-## This README is not complete!!
-More documentation to come.
+## Subsystems
+ - Swerve Drive - See the [Java Swerve Template](https://github.com/SMNWTeam1982/java-swerve-template) for more information on this subsystem
+ - Vision - See the [Java Swerve Template](https://github.com/SMNWTeam1982/java-swerve-template) for more information on this subsystem
+ - Climber - A complete rewrite of the climber code using PID control to hold position among other improvements
+ - Elevator - A modified re-implementation of the original elevator subsystem
+ - Intake - A complete rewrite of the original intake, seperated into it's own subsystem for better structure
