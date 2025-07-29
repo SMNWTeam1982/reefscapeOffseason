@@ -42,12 +42,36 @@ public final class Constants {
 
   /** Constants for general configuration of the robot project */
   public static class OperatorConstants {
-    public static final String PROJECT_NAME = "Swerve Template";
+    public static final String PROJECT_NAME = "Reefscape Off-Season";
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
     public static final boolean ENABLE_QUESTNAV = false;
     public static final boolean ENABLE_PHOTONLIB = false;
     public static final boolean REPLAY_LOGS = false;
+  }
+
+  /** Constants to configure the Climber */
+  public static class ClimberConstants {
+    public static final SparkBaseConfig CLIMB_MOTOR_CONFIG =
+        new SparkMaxConfig().smartCurrentLimit(40).idleMode(SparkBaseConfig.IdleMode.kBrake);
+
+    // These values will need to be measured, bogus values for now to test in simulation
+    public static final double ROTATIONS_TO_DEGREES = 5;
+    public static final Rotation2d RAISED_POSITION = Rotation2d.fromDegrees(175);
+    public static final double CLIMB_PROPORTIONAL_GAIN = 0.7;
+    public static final double CLIMB_INTEGRAL_GAIN = 0;
+    public static final double CLIMB_DERIVATIVE_GAIN = 0.1;
+
+    public static enum CLIMB_STATE {
+      LOWERED(new Rotation2d(Units.degreesToRadians(0))),
+      RAISED(RAISED_POSITION);
+
+      public final Rotation2d position;
+
+      private CLIMB_STATE(Rotation2d position) {
+        this.position = position;
+      }
+    }
   }
 
   /** Constants to configure Swerve Modules */

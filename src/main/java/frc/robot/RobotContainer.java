@@ -6,13 +6,15 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandStadiaController;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.DriveRobotRelative;
+import frc.robot.commands.climber.LowerClimber;
+import frc.robot.commands.climber.RaiseClimber;
+import frc.robot.subsystems.climber.ClimberSubsystem;
 import frc.robot.subsystems.swerve.DriveSubsystem;
 import frc.robot.subsystems.vision.PhotonVisionSubsystem;
 import frc.robot.subsystems.vision.QuestNavSubsystem;
@@ -29,14 +31,15 @@ public class RobotContainer {
   private PhotonVisionSubsystem photonVision;
   private QuestNavSubsystem questNav;
   private DriveSubsystem driveTrain;
+  private ClimberSubsystem climber;
 
   private final LoggedDashboardChooser<Command> autoChooser;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandStadiaController driverController =
       new CommandStadiaController(OperatorConstants.DRIVER_CONTROLLER_PORT);
-  private final CommandJoystick operatorController =
-      new CommandJoystick(OperatorConstants.OPERATOR_CONTROLLER_PORT);
+  private final CommandStadiaController operatorController =
+      new CommandStadiaController(OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   @SuppressWarnings("unused")
@@ -62,6 +65,8 @@ public class RobotContainer {
     } else {
       driveTrain = new DriveSubsystem();
     }
+
+    climber = new ClimberSubsystem(17);
 
     autoChooser =
         new LoggedDashboardChooser<>("Selected Auto Routine", AutoBuilder.buildAutoChooser());
@@ -89,7 +94,14 @@ public class RobotContainer {
             driverController.a()));
   }
 
-  private void configureOperatorBindings() {}
+  private void configureOperatorBindings() {
+    operatorController
+        .rightBumper()
+        .onTrue(new RaiseClimber(climber, () -> operatorController.rightBumper().getAsBoolean()));
+    operatorController
+        .leftBumper()
+        .onTrue(new LowerClimber(climber, () -> operatorController.leftBumper().getAsBoolean()));
+  }
 
   private double deadZone(double number) {
     if (Math.abs(number) < 0.05) {
